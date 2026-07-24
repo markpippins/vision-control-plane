@@ -1,0 +1,6 @@
+{
+  "name": "LOSM Vision Control Plane",
+  "description": "Process management and DAG compilation control plane for agentic software engineering organizations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

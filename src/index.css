@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+@layer utilities {
+  /* Custom thin scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.5);
+  }
+}
+
+/* Theme Roots */
+:root, [data-theme="dark"] {
+  --bg-app: #050505;
+  --bg-surface: #0a0a0a;
+  --bg-card: #0d0d0d;
+  --bg-panel: rgba(0, 0, 0, 0.4);
+  --border-main: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --accent: #4f46e5;
+  --accent-hover: #6366f1;
+}
+
+[data-theme="light"] {
+  --bg-app: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card: #ffffff;
+  --bg-panel: #f1f5f9;
+  --border-main: #cbd5e1;
+  --border-subtle: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+  --accent: #4338ca;
+  --accent-hover: #4f46e5;
+}
+
+[data-theme="steel"] {
+  --bg-app: #0f172a;
+  --bg-surface: #182234;
+  --bg-card: #1e293b;
+  --bg-panel: #0f172a;
+  --border-main: #334155;
+  --border-subtle: #1e293b;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --accent: #0284c7;
+  --accent-hover: #0369a1;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Light Theme Overrides for deep dark elements */
+[data-theme="light"] .bg-\[\#050505\] {
+  background-color: #f8fafc !important;
+}
+
+[data-theme="light"] .bg-\[\#0a0a0a\] {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-\[\#0d0d0d\] {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-black\/40,
+[data-theme="light"] .bg-black\/60,
+[data-theme="light"] .bg-black\/80,
+[data-theme="light"] .bg-black\/30 {
+  background-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .bg-black {
+  background-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .border-white\/10,
+[data-theme="light"] .border-white\/5,
+[data-theme="light"] .border-white\/15 {
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .text-white {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .text-slate-100,
+[data-theme="light"] .text-slate-200 {
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .text-slate-300,
+[data-theme="light"] .text-slate-400 {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* Steel Theme Overrides for metallic industrial look */
+[data-theme="steel"] .bg-\[\#050505\] {
+  background-color: #0b1120 !important;
+}
+
+[data-theme="steel"] .bg-\[\#0a0a0a\] {
+  background-color: #131c2e !important;
+}
+
+[data-theme="steel"] .bg-\[\#0d0d0d\] {
+  background-color: #1a2436 !important;
+}
+
+[data-theme="steel"] .bg-black\/40,
+[data-theme="steel"] .bg-black\/60,
+[data-theme="steel"] .bg-black\/80 {
+  background-color: #0f172a !important;
+}
+
+[data-theme="steel"] .border-white\/10,
+[data-theme="steel"] .border-white\/5,
+[data-theme="steel"] .border-white\/15 {
+  border-color: #334155 !important;
+}
+
