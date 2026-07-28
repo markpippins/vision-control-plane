@@ -42,29 +42,31 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
   onPromoteArtifactStage,
   searchQuery
 }) => {
+  const safeArtifacts = Array.isArray(artifacts) ? artifacts : [];
   const [activeStage, setActiveStage] = useState<PipelineStage>('HARVEST');
   const [selectedArtifactId, setSelectedArtifactId] = useState<string | null>(
-    artifacts[0]?.artifact_id || null
+    safeArtifacts[0]?.artifact_id || null
   );
   const [localSearch, setLocalSearch] = useState<string>('');
   const [showRawJson, setShowRawJson] = useState<boolean>(false);
 
   const q = (searchQuery || localSearch).toLowerCase();
 
-  const stageArtifacts = artifacts.filter((a) => {
+  const stageArtifacts = safeArtifacts.filter((a) => {
+    if (!a) return false;
     const stage = a.stage || 'CANDIDATE';
     if (stage !== activeStage) return false;
     if (q) {
       const matchTitle = (a.title || '').toLowerCase().includes(q);
       const matchSummary = (a.summary || '').toLowerCase().includes(q);
-      const matchId = a.artifact_id.toLowerCase().includes(q);
+      const matchId = (a.artifact_id || '').toLowerCase().includes(q);
       if (!matchTitle && !matchSummary && !matchId) return false;
     }
     return true;
   });
 
   const selectedArtifact =
-    artifacts.find((a) => a.artifact_id === selectedArtifactId) || stageArtifacts[0] || artifacts[0];
+    safeArtifacts.find((a) => a?.artifact_id === selectedArtifactId) || stageArtifacts[0] || safeArtifacts[0];
 
   const getNextStage = (current: PipelineStage): PipelineStage | null => {
     const order: PipelineStage[] = [
@@ -86,7 +88,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
       {/* Top Stage Navigation Tabs */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 bg-[#0a0a0a] p-2.5 rounded-lg border border-white/10 shadow-xl">
         {STAGES.map((st) => {
-          const count = artifacts.filter((a) => (a.stage || 'CANDIDATE') === st.id).length;
+          const count = safeArtifacts.filter((a) => (a?.stage || 'CANDIDATE') === st.id).length;
           const isActive = activeStage === st.id;
 
           return (

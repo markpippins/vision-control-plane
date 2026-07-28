@@ -55,19 +55,21 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
   onOpenNewWRModal,
   searchQuery
 }) => {
+  const safeWorkRequests = Array.isArray(workRequests) ? workRequests : [];
   const [priorityFilter, setPriorityFilter] = useState<number>(0);
   const [localSearch, setLocalSearch] = useState<string>('');
 
   const activeSearch = searchQuery || localSearch;
 
   // Filter tasks
-  const filteredTasks = workRequests.filter((wr) => {
-    if (priorityFilter > 0 && wr.priority < priorityFilter) return false;
+  const filteredTasks = safeWorkRequests.filter((wr) => {
+    if (!wr) return false;
+    if (priorityFilter > 0 && (wr.priority || 0) < priorityFilter) return false;
     if (activeSearch) {
       const q = activeSearch.toLowerCase();
-      const matchId = wr.wr_id.toLowerCase().includes(q);
-      const matchIntent = wr.intent.toLowerCase().includes(q);
-      const matchStatus = wr.status.toLowerCase().includes(q);
+      const matchId = (wr.wr_id || '').toLowerCase().includes(q);
+      const matchIntent = (wr.intent || '').toLowerCase().includes(q);
+      const matchStatus = (wr.status || '').toLowerCase().includes(q);
       if (!matchId && !matchIntent && !matchStatus) return false;
     }
     return true;
@@ -128,7 +130,7 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
 
         <div className="flex items-center gap-3">
           <span className="text-slate-400">
-            Showing <strong className="text-indigo-400">{filteredTasks.length}</strong> of {workRequests.length} tasks
+            Showing <strong className="text-indigo-400">{filteredTasks.length}</strong> of {safeWorkRequests.length} tasks
           </span>
           <button
             onClick={onOpenNewWRModal}
@@ -202,7 +204,7 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
                               <span>{task.parent_request_id.slice(-8)}</span>
                             </span>
                           )}
-                          {task.constraints && (
+                          {task.constraints && typeof task.constraints === 'object' && (
                             <span className="px-1.5 py-0.5 bg-black/40 text-slate-400 border border-white/5 rounded">
                               {Object.keys(task.constraints).length} constraint(s)
                             </span>

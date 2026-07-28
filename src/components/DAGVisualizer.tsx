@@ -29,9 +29,13 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
   onRunValidation,
   onRefreshDAG
 }) => {
-  const nodeKeys = Object.keys(dag.nodes);
-  const [selectedNodeId, setSelectedNodeId] = useState<string>(dag.root_wr_id || nodeKeys[0]);
-  const [sourceNodeId, setSourceNodeId] = useState<string>(dag.root_wr_id || nodeKeys[0]);
+  const safeDag = dag && typeof dag === 'object' ? dag : { nodes: {}, edges: [], total_nodes: 0, depth: 0, compilation_status: 'UNKNOWN', root_wr_id: '' };
+  const safeNodes = safeDag.nodes && typeof safeDag.nodes === 'object' ? safeDag.nodes : {};
+  const safeEdges = Array.isArray(safeDag.edges) ? safeDag.edges : [];
+  const nodeKeys = Object.keys(safeNodes);
+
+  const [selectedNodeId, setSelectedNodeId] = useState<string>(safeDag.root_wr_id || nodeKeys[0] || '');
+  const [sourceNodeId, setSourceNodeId] = useState<string>(safeDag.root_wr_id || nodeKeys[0] || '');
   const [targetNodeId, setTargetNodeId] = useState<string>(nodeKeys[nodeKeys.length - 1] || '');
 
   const [pathResult, setPathResult] = useState<PathResult | null>(null);
@@ -39,7 +43,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
   const [loadingPath, setLoadingPath] = useState<boolean>(false);
   const [loadingValidation, setLoadingValidation] = useState<boolean>(false);
 
-  const selectedNode = dag.nodes[selectedNodeId] || dag.nodes[nodeKeys[0]];
+  const selectedNode = safeNodes[selectedNodeId] || safeNodes[nodeKeys[0]] || null;
 
   const handlePathSearch = async () => {
     if (!sourceNodeId || !targetNodeId) return;
@@ -65,14 +69,15 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
 
   // Group nodes by depth
   const depthGroups: Record<number, any[]> = {};
-  Object.values(dag.nodes).forEach((node: any) => {
+  Object.values(safeNodes).forEach((node: any) => {
+    if (!node) return;
     const d = node.depth ?? 0;
     if (!depthGroups[d]) depthGroups[d] = [];
     depthGroups[d].push(node);
   });
 
   const isNodeInPath = (wr_id: string) => {
-    return pathResult?.path.includes(wr_id);
+    return Array.isArray(pathResult?.path) && pathResult.path.includes(wr_id);
   };
 
   return (
@@ -85,14 +90,14 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
             <span className="font-bold text-white text-sm tracking-wide">DAG COMPILER & PATH TRAVERSAL ENGINE</span>
           </div>
           <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded font-bold uppercase tracking-wider">
-            {dag.compilation_status.toUpperCase()}
+            {(safeDag.compilation_status || 'COMPLETED').toUpperCase()}
           </span>
         </div>
 
         <div className="flex items-center gap-3 text-slate-400">
-          <span>DAG_ID: <strong className="text-indigo-400">{dag.dag_id}</strong></span>
-          <span>Nodes: <strong className="text-slate-200">{dag.total_nodes}</strong></span>
-          <span>Edges: <strong className="text-slate-200">{dag.edges.length}</strong></span>
+          <span>DAG_ID: <strong className="text-indigo-400">{safeDag.dag_id || 'dag-root'}</strong></span>
+          <span>Nodes: <strong className="text-slate-200">{safeDag.total_nodes || nodeKeys.length}</strong></span>
+          <span>Edges: <strong className="text-slate-200">{safeEdges.length}</strong></span>
           <button
             onClick={onRefreshDAG}
             className="p-1 text-slate-400 hover:text-slate-100 bg-white/5 hover:bg-white/10 border border-white/10 rounded transition-colors"

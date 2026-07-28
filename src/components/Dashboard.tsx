@@ -47,9 +47,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onNavigateToTab,
   onSelectWR
 }) => {
+  const safeWorkRequests = Array.isArray(workRequests) ? workRequests : [];
+  const safeArtifacts = Array.isArray(artifacts) ? artifacts : [];
+  const safeDag = dag && typeof dag === 'object' ? dag : { total_nodes: 0, depth: 0, edges: [], nodes: {}, compilation_status: 'COMPLETED' };
+  const safeEdges = Array.isArray(safeDag.edges) ? safeDag.edges : [];
+
   // Status breakdown calculations
-  const statusCounts = workRequests.reduce((acc, curr) => {
-    acc[curr.status] = (acc[curr.status] || 0) + 1;
+  const statusCounts = safeWorkRequests.reduce((acc, curr) => {
+    if (curr && curr.status) {
+      acc[curr.status] = (acc[curr.status] || 0) + 1;
+    }
     return acc;
   }, {} as Record<string, number>);
 
@@ -66,8 +73,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
   ];
 
   // Stage counts for artifact pipeline
-  const stageCounts = artifacts.reduce((acc, curr) => {
-    const st = curr.stage || 'CANDIDATE';
+  const stageCounts = safeArtifacts.reduce((acc, curr) => {
+    const st = curr?.stage || 'CANDIDATE';
     acc[st] = (acc[st] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
@@ -77,9 +84,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
     ms: p.duration_ms
   }));
 
-  const totalPriorityAvg = Math.round(
-    (workRequests.reduce((sum, w) => sum + w.priority, 0) / (workRequests.length || 1)) * 10
-  ) / 10;
+  const totalPriorityAvg = safeWorkRequests.length > 0
+    ? Math.round((safeWorkRequests.reduce((sum, w) => sum + (w.priority || 0), 0) / safeWorkRequests.length) * 10) / 10
+    : 5;
 
   return (
     <div className="p-4 space-y-4 overflow-y-auto max-h-[calc(100vh-80px)] bg-[#050505] text-slate-100 font-sans">
@@ -156,7 +163,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <Layers className="w-3.5 h-3.5 text-indigo-400" />
           </div>
           <div className="flex items-baseline justify-between">
-            <span className="text-2xl font-mono font-bold text-white">{workRequests.length}</span>
+            <span className="text-2xl font-mono font-bold text-white">{safeWorkRequests.length}</span>
             <span className="text-[11px] font-mono text-emerald-400 font-medium">Avg P{totalPriorityAvg}/10</span>
           </div>
           <div className="text-[10px] text-slate-500 font-mono">
@@ -170,11 +177,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <GitGraph className="w-3.5 h-3.5 text-sky-400" />
           </div>
           <div className="flex items-baseline justify-between">
-            <span className="text-2xl font-mono font-bold text-sky-300">{dag.total_nodes}</span>
-            <span className="text-[11px] font-mono text-slate-400">Depth {dag.depth}</span>
+            <span className="text-2xl font-mono font-bold text-sky-300">{safeDag.total_nodes || 0}</span>
+            <span className="text-[11px] font-mono text-slate-400">Depth {safeDag.depth || 0}</span>
           </div>
           <div className="text-[10px] text-slate-500 font-mono">
-            Edges: {dag.edges.length} · Status: <span className="text-emerald-400">{dag.compilation_status}</span>
+            Edges: {safeEdges.length} · Status: <span className="text-emerald-400">{safeDag.compilation_status || 'COMPLETED'}</span>
           </div>
         </div>
 
@@ -184,7 +191,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <Zap className="w-3.5 h-3.5 text-purple-400" />
           </div>
           <div className="flex items-baseline justify-between">
-            <span className="text-2xl font-mono font-bold text-purple-300">{artifacts.length}</span>
+            <span className="text-2xl font-mono font-bold text-purple-300">{safeArtifacts.length}</span>
             <span className="text-[11px] font-mono text-purple-400 font-medium">8 Stages</span>
           </div>
           <div className="text-[10px] text-slate-500 font-mono">
@@ -320,7 +327,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
-              {workRequests.slice(0, 6).map((wr) => {
+              {safeWorkRequests.slice(0, 6).map((wr) => {
                 const priorityColor =
                   wr.priority >= 9
                     ? 'text-rose-400 bg-rose-500/10 border-rose-500/30'

@@ -13,6 +13,9 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
   governanceEvents,
   receipts
 }) => {
+  const safeLifecycle = Array.isArray(lifecycleEvents) ? lifecycleEvents : [];
+  const safeGovernance = Array.isArray(governanceEvents) ? governanceEvents : [];
+  const safeReceipts = Array.isArray(receipts) ? receipts : [];
   const [activeTab, setActiveTab] = useState<'lifecycle' | 'governance' | 'receipts'>('lifecycle');
 
   return (
@@ -36,7 +39,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
               : 'bg-white/5 text-slate-400 hover:text-slate-200 border border-white/5'
           }`}
         >
-          Lifecycle Events ({lifecycleEvents.length})
+          Lifecycle Events ({safeLifecycle.length})
         </button>
         <button
           onClick={() => setActiveTab('governance')}
@@ -46,7 +49,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
               : 'bg-white/5 text-slate-400 hover:text-slate-200 border border-white/5'
           }`}
         >
-          Governance Events ({governanceEvents.length})
+          Governance Events ({safeGovernance.length})
         </button>
         <button
           onClick={() => setActiveTab('receipts')}
@@ -56,7 +59,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
               : 'bg-white/5 text-slate-400 hover:text-slate-200 border border-white/5'
           }`}
         >
-          Receipt Ingest Records ({receipts.length})
+          Receipt Ingest Records ({safeReceipts.length})
         </button>
       </div>
 
@@ -80,7 +83,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5 text-slate-200">
-                {lifecycleEvents.map((e) => (
+                {safeLifecycle.map((e) => (
                   <tr key={e.event_id} className="hover:bg-indigo-500/5 transition-colors">
                     <td className="py-2.5 px-3 font-semibold text-indigo-400">{e.event_id}</td>
                     <td className="py-2.5 px-3 text-sky-300 font-bold">{e.wr_id}</td>
@@ -116,7 +119,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5 text-slate-200">
-                {governanceEvents.map((g) => (
+                {safeGovernance.map((g) => (
                   <tr key={g.event_id} className="hover:bg-indigo-500/5 transition-colors">
                     <td className="py-2.5 px-3 font-semibold text-purple-300">{g.event_id}</td>
                     <td className="py-2.5 px-3 font-bold text-emerald-400">{g.event_type}</td>
@@ -150,7 +153,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5 text-slate-200">
-                {receipts.map((r) => (
+                {safeReceipts.map((r) => (
                   <tr key={r.receipt_id} className="hover:bg-indigo-500/5 transition-colors">
                     <td className="py-2.5 px-3 font-semibold text-amber-300">{r.receipt_id}</td>
                     <td className="py-2.5 px-3 text-sky-300 font-bold">{r.work_request_id}</td>

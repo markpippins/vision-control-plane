@@ -13,7 +13,9 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
   workRequests,
   onCreateBranch
 }) => {
-  const [selectedWrId, setSelectedWrId] = useState<string>(workRequests[0]?.wr_id || '');
+  const safeBranches = Array.isArray(branches) ? branches : [];
+  const safeWorkRequests = Array.isArray(workRequests) ? workRequests : [];
+  const [selectedWrId, setSelectedWrId] = useState<string>(safeWorkRequests[0]?.wr_id || '');
   const [labelInput, setLabelInput] = useState<string>('experimental-branch-fork');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -34,7 +36,7 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
           <GitBranch className="w-4 h-4 text-sky-400" />
           <span className="font-bold text-white text-sm tracking-wide">BRANCH & FORK EXECUTION PATH MANAGER</span>
         </div>
-        <span className="text-slate-400">Total Active Branches: <strong className="text-indigo-400">{branches.length}</strong></span>
+        <span className="text-slate-400">Total Active Branches: <strong className="text-indigo-400">{safeBranches.length}</strong></span>
       </div>
 
       {/* Grid: Create New Branch (Left 4 cols) + Branches Table (Right 8 cols) */}
@@ -54,9 +56,9 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
                 onChange={(e) => setSelectedWrId(e.target.value)}
                 className="w-full bg-black/40 border border-white/5 rounded p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
               >
-                {workRequests.map((w) => (
+                {safeWorkRequests.map((w) => (
                   <option key={w.wr_id} value={w.wr_id}>
-                    {w.wr_id} - {w.intent.slice(0, 32)}...
+                    {w.wr_id} - {(w.intent || '').slice(0, 32)}...
                   </option>
                 ))}
               </select>
@@ -86,7 +88,7 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
         {/* Branch Cards & Table */}
         <div className="lg:col-span-8 bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-xs shadow-2xl">
           <h2 className="font-bold text-white border-b border-white/5 pb-2 uppercase tracking-wide">
-            ACTIVE & HISTORICAL BRANCHES ({branches.length})
+            ACTIVE & HISTORICAL BRANCHES ({safeBranches.length})
           </h2>
 
           <div className="overflow-x-auto">
@@ -102,7 +104,7 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5 text-slate-200">
-                {branches.map((b) => {
+                {safeBranches.map((b) => {
                   const statusBadge =
                     b.status === 'active'
                       ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'

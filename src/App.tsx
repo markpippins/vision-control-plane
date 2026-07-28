@@ -54,12 +54,16 @@ function MainAppContent() {
         visionService.getBranches()
       ]);
 
-      setWorkRequests(wrs);
-      setArtifacts(arts);
-      setBranches(brs);
+      const safeWrs = Array.isArray(wrs) ? wrs : [];
+      const safeArts = Array.isArray(arts) ? arts : [];
+      const safeBrs = Array.isArray(brs) ? brs : [];
 
-      if (wrs.length > 0) {
-        const dagRes = await visionService.getDAG(wrs[0].wr_id);
+      setWorkRequests(safeWrs);
+      setArtifacts(safeArts);
+      setBranches(safeBrs);
+
+      if (safeWrs.length > 0 && safeWrs[0]?.wr_id) {
+        const dagRes = await visionService.getDAG(safeWrs[0].wr_id);
         setDag(dagRes);
       }
     } catch (err) {
@@ -156,8 +160,8 @@ function MainAppContent() {
     }
   };
 
-  const blockedCount = workRequests.filter((w) => w.status === 'BLOCKED').length;
-  const existingWrIds = workRequests.map((w) => w.wr_id);
+  const blockedCount = (workRequests || []).filter((w) => w?.status === 'BLOCKED').length;
+  const existingWrIds = (workRequests || []).map((w) => w?.wr_id || '');
 
   return (
     <div className="min-h-screen bg-[#050505] text-slate-100 flex flex-col font-sans select-none antialiased">

@@ -53,13 +53,30 @@ export class VisionService {
   }
 
   private initMockStorage(): void {
-    if (!localStorage.getItem(MOCK_STORAGE_KEY_WR)) {
+    try {
+      const wr = localStorage.getItem(MOCK_STORAGE_KEY_WR);
+      if (!wr || !Array.isArray(JSON.parse(wr))) {
+        localStorage.setItem(MOCK_STORAGE_KEY_WR, JSON.stringify(INITIAL_WORK_REQUESTS));
+      }
+    } catch {
       localStorage.setItem(MOCK_STORAGE_KEY_WR, JSON.stringify(INITIAL_WORK_REQUESTS));
     }
-    if (!localStorage.getItem(MOCK_STORAGE_KEY_ART)) {
+
+    try {
+      const art = localStorage.getItem(MOCK_STORAGE_KEY_ART);
+      if (!art || !Array.isArray(JSON.parse(art))) {
+        localStorage.setItem(MOCK_STORAGE_KEY_ART, JSON.stringify(INITIAL_ARTIFACTS));
+      }
+    } catch {
       localStorage.setItem(MOCK_STORAGE_KEY_ART, JSON.stringify(INITIAL_ARTIFACTS));
     }
-    if (!localStorage.getItem(MOCK_STORAGE_KEY_BR)) {
+
+    try {
+      const br = localStorage.getItem(MOCK_STORAGE_KEY_BR);
+      if (!br || !Array.isArray(JSON.parse(br))) {
+        localStorage.setItem(MOCK_STORAGE_KEY_BR, JSON.stringify(INITIAL_BRANCHES));
+      }
+    } catch {
       localStorage.setItem(MOCK_STORAGE_KEY_BR, JSON.stringify(INITIAL_BRANCHES));
     }
   }
@@ -67,33 +84,39 @@ export class VisionService {
   private getStoredWorkRequests(): PlanningTask[] {
     try {
       const data = localStorage.getItem(MOCK_STORAGE_KEY_WR);
-      return data ? JSON.parse(data) : INITIAL_WORK_REQUESTS;
+      if (!data) return INITIAL_WORK_REQUESTS;
+      const parsed = JSON.parse(data);
+      return Array.isArray(parsed) ? parsed : INITIAL_WORK_REQUESTS;
     } catch {
       return INITIAL_WORK_REQUESTS;
     }
   }
 
   private saveStoredWorkRequests(tasks: PlanningTask[]): void {
-    localStorage.setItem(MOCK_STORAGE_KEY_WR, JSON.stringify(tasks));
+    localStorage.setItem(MOCK_STORAGE_KEY_WR, JSON.stringify(Array.isArray(tasks) ? tasks : INITIAL_WORK_REQUESTS));
   }
 
   private getStoredArtifacts(): Artifact[] {
     try {
       const data = localStorage.getItem(MOCK_STORAGE_KEY_ART);
-      return data ? JSON.parse(data) : INITIAL_ARTIFACTS;
+      if (!data) return INITIAL_ARTIFACTS;
+      const parsed = JSON.parse(data);
+      return Array.isArray(parsed) ? parsed : INITIAL_ARTIFACTS;
     } catch {
       return INITIAL_ARTIFACTS;
     }
   }
 
   private saveStoredArtifacts(artifacts: Artifact[]): void {
-    localStorage.setItem(MOCK_STORAGE_KEY_ART, JSON.stringify(artifacts));
+    localStorage.setItem(MOCK_STORAGE_KEY_ART, JSON.stringify(Array.isArray(artifacts) ? artifacts : INITIAL_ARTIFACTS));
   }
 
   private getStoredBranches(): Branch[] {
     try {
       const data = localStorage.getItem(MOCK_STORAGE_KEY_BR);
-      return data ? JSON.parse(data) : INITIAL_BRANCHES;
+      if (!data) return INITIAL_BRANCHES;
+      const parsed = JSON.parse(data);
+      return Array.isArray(parsed) ? parsed : INITIAL_BRANCHES;
     } catch {
       return INITIAL_BRANCHES;
     }
