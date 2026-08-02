@@ -1,10 +1,11 @@
+import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = parseInt(process.env.PORT || '4208', 10);
   const VISION_SRV_URL = process.env.VISION_SRV_URL || 'http://localhost:8003';
 
   app.use(express.json());
