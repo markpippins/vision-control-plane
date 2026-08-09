@@ -91,7 +91,7 @@ The \`visionService\` maps directly to all \`vision-srv\` FastAPI routes:
   return (
     <div className="p-4 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto bg-[#050505] text-slate-100 font-sans">
       {/* Top Banner */}
-      <div className="flex items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 font-mono text-xs shadow-xl">
+      <div className="flex items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 font-mono text-sm shadow-xl">
         <div className="flex items-center gap-2">
           <BookOpen className="w-4 h-4 text-indigo-400" />
           <span className="font-bold text-white text-sm tracking-wide">INTEGRATION & LIVE DEPLOYMENT GUIDE</span>
@@ -107,7 +107,7 @@ The \`visionService\` maps directly to all \`vision-srv\` FastAPI routes:
       </div>
 
       {/* Rendered Guide */}
-      <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-6 font-mono text-xs text-slate-200 leading-relaxed space-y-4 shadow-2xl">
+      <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-6 font-mono text-sm text-slate-200 leading-relaxed space-y-4 shadow-2xl">
         <div className="bg-black/40 p-4 rounded-lg border border-white/5 whitespace-pre-wrap text-slate-300 shadow-inner font-mono text-[11px] leading-relaxed">
           {markdownContent}
         </div>

@@ -97,12 +97,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <Cpu className="w-4 h-4 text-indigo-400" />
             <span>LOSM Operational State Machine Control Surface</span>
           </h1>
-          <p className="text-xs text-slate-400 font-mono mt-0.5">
+          <p className="text-sm text-slate-400 font-mono mt-0.5">
             Process Control Plane & 6-Pass DAG Compiler Engine · Schema: <span className="text-indigo-400 font-bold">vision</span>
           </p>
         </div>
 
-        <div className="flex items-center gap-2 font-mono text-xs">
+        <div className="flex items-center gap-2 font-mono text-sm">
           <button
             onClick={() => onNavigateToTab('kanban')}
             className="flex items-center gap-1.5 bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 px-3 py-1.5 rounded transition-all font-semibold shadow-[0_0_10px_rgba(79,70,229,0.2)]"
@@ -122,7 +122,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
       {/* Process Pipeline HUD Row */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between px-1 font-mono text-xs">
+        <div className="flex items-center justify-between px-1 font-mono text-sm">
           <span className="text-slate-400 uppercase font-bold tracking-wider text-[11px]">Process Pipeline HUD</span>
           <span className="text-[10px] text-slate-500">Live Stage Tracker</span>
         </div>
@@ -158,7 +158,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {/* Metric Cards Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div className="bg-white/5 border border-white/10 p-3.5 rounded-lg space-y-1 relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
+          <div className="flex items-center justify-between text-sm text-slate-400 font-mono">
             <span>Work Requests</span>
             <Layers className="w-3.5 h-3.5 text-indigo-400" />
           </div>
@@ -172,7 +172,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         <div className="bg-white/5 border border-white/10 p-3.5 rounded-lg space-y-1 relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
+          <div className="flex items-center justify-between text-sm text-slate-400 font-mono">
             <span>DAG Nodes & Depth</span>
             <GitGraph className="w-3.5 h-3.5 text-sky-400" />
           </div>
@@ -186,7 +186,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         <div className="bg-white/5 border border-white/10 p-3.5 rounded-lg space-y-1 relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
+          <div className="flex items-center justify-between text-sm text-slate-400 font-mono">
             <span>Artifact Items</span>
             <Zap className="w-3.5 h-3.5 text-purple-400" />
           </div>
@@ -200,7 +200,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         <div className="bg-white/5 border border-white/10 p-3.5 rounded-lg space-y-1 relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
+          <div className="flex items-center justify-between text-sm text-slate-400 font-mono">
             <span>Compiler Latency</span>
             <Clock className="w-3.5 h-3.5 text-emerald-400" />
           </div>
@@ -219,7 +219,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Chart 1: Lifecycle Distribution */}
         <div className="bg-white/5 border border-white/10 p-4 rounded-lg space-y-2">
           <div className="flex items-center justify-between border-b border-white/5 pb-2">
-            <h2 className="text-xs font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wide">
+            <h2 className="text-sm font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wide">
               <Activity className="w-3.5 h-3.5 text-indigo-400" />
               <span>WORK REQUEST LIFECYCLE DISTRIBUTION</span>
             </h2>
@@ -247,7 +247,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Chart 2: 6-Pass Compilation Engine Timings */}
         <div className="bg-white/5 border border-white/10 p-4 rounded-lg space-y-2">
           <div className="flex items-center justify-between border-b border-white/5 pb-2">
-            <h2 className="text-xs font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wide">
+            <h2 className="text-sm font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wide">
               <Sliders className="w-3.5 h-3.5 text-emerald-400" />
               <span>6-PASS DAG COMPILATION LATENCY (MS)</span>
             </h2>
@@ -271,7 +271,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
       {/* 6-Pass Compilation Status Visual Row */}
       <div className="bg-white/5 border border-white/10 p-4 rounded-lg space-y-3">
-        <h2 className="text-xs font-mono font-bold text-white flex items-center justify-between uppercase tracking-wide">
+        <h2 className="text-sm font-mono font-bold text-white flex items-center justify-between uppercase tracking-wide">
           <span className="flex items-center gap-2">
             <GitGraph className="w-3.5 h-3.5 text-sky-400" />
             <span>DAG 6-PASS COMPILATION PIPELINE STATUS</span>
@@ -279,7 +279,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           <span className="text-[10px] text-slate-500 font-normal">Tenant: vision-srv · Kernel: kernel-01</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-2 font-mono text-xs">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-2 font-mono text-sm">
           {INITIAL_COMPILATION_PASSES.map((pass) => (
             <div
               key={pass.pass_number}
@@ -292,7 +292,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <span>{pass.duration_ms}ms</span>
                 </span>
               </div>
-              <div className="font-bold text-white text-xs">{pass.name}</div>
+              <div className="font-bold text-white text-sm">{pass.name}</div>
               <div className="text-[10px] text-slate-400 line-clamp-2 leading-tight font-sans">{pass.description}</div>
             </div>
           ))}
@@ -302,20 +302,20 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {/* Active Work Requests Table */}
       <div className="bg-black/40 border border-white/10 rounded-lg p-4 space-y-3 shadow-2xl">
         <div className="flex items-center justify-between border-b border-white/5 pb-2">
-          <h2 className="text-xs font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wide">
+          <h2 className="text-sm font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wide">
             <Layers className="w-3.5 h-3.5 text-indigo-400" />
             <span>RECENT WORK REQUESTS IN LOSM PIPELINE</span>
           </h2>
           <button
             onClick={() => onNavigateToTab('kanban')}
-            className="text-xs text-indigo-400 hover:text-indigo-300 font-mono font-bold"
+            className="text-sm text-indigo-400 hover:text-indigo-300 font-mono font-bold"
           >
             View All in Kanban &rarr;
           </button>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left font-mono text-xs border-collapse">
+          <table className="w-full text-left font-mono text-sm border-collapse">
             <thead>
               <tr className="bg-white/5 text-slate-400 border-b border-white/10 text-[11px] uppercase font-bold">
                 <th className="py-2.5 px-3">WR_ID</th>
@@ -358,7 +358,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                           onSelectWR(wr.wr_id);
                           onNavigateToTab('kanban');
                         }}
-                        className="text-xs text-indigo-400 hover:text-white bg-white/5 hover:bg-indigo-600 px-2.5 py-1 rounded border border-white/10 transition-all font-bold"
+                        className="text-sm text-indigo-400 hover:text-white bg-white/5 hover:bg-indigo-600 px-2.5 py-1 rounded border border-white/10 transition-all font-bold"
                       >
                         Inspect
                       </button>

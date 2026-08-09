@@ -31,7 +31,7 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
   return (
     <div className="p-4 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto bg-[#050505] text-slate-100 font-sans">
       {/* Top Header */}
-      <div className="flex items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 font-mono text-xs shadow-xl">
+      <div className="flex items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 font-mono text-sm shadow-xl">
         <div className="flex items-center gap-2">
           <GitBranch className="w-4 h-4 text-sky-400" />
           <span className="font-bold text-white text-sm tracking-wide">BRANCH & FORK EXECUTION PATH MANAGER</span>
@@ -42,7 +42,7 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
       {/* Grid: Create New Branch (Left 4 cols) + Branches Table (Right 8 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Create Form */}
-        <div className="lg:col-span-4 bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-xs shadow-2xl">
+        <div className="lg:col-span-4 bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-sm shadow-2xl">
           <h2 className="font-bold text-white border-b border-white/5 pb-2 flex items-center gap-2 uppercase tracking-wide">
             <Plus className="w-4 h-4 text-indigo-400" />
             <span>FORK NEW EXECUTION BRANCH</span>
@@ -54,7 +54,7 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
               <select
                 value={selectedWrId}
                 onChange={(e) => setSelectedWrId(e.target.value)}
-                className="w-full bg-black/40 border border-white/5 rounded p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
               >
                 {safeWorkRequests.map((w) => (
                   <option key={w.wr_id} value={w.wr_id}>
@@ -71,7 +71,7 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
                 value={labelInput}
                 onChange={(e) => setLabelInput(e.target.value)}
                 placeholder="e.g. async-optimization-fork"
-                className="w-full bg-black/40 border border-white/5 rounded p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
               />
             </div>
 
@@ -86,13 +86,13 @@ export const BranchesView: React.FC<BranchesViewProps> = ({
         </div>
 
         {/* Branch Cards & Table */}
-        <div className="lg:col-span-8 bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-xs shadow-2xl">
+        <div className="lg:col-span-8 bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-sm shadow-2xl">
           <h2 className="font-bold text-white border-b border-white/5 pb-2 uppercase tracking-wide">
             ACTIVE & HISTORICAL BRANCHES ({safeBranches.length})
           </h2>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+            <table className="w-full text-left text-sm border-collapse">
               <thead>
                 <tr className="bg-white/5 text-slate-400 border-b border-white/10 text-[11px] uppercase font-bold">
                   <th className="py-2.5 px-3">BRANCH ID</th>

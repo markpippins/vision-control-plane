@@ -105,7 +105,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
                   : 'bg-black/40 border-white/5 hover:border-white/15 text-slate-400'
               }`}
             >
-              <div className="flex items-center justify-between text-xs font-bold">
+              <div className="flex items-center justify-between text-sm font-bold">
                 <span className={isActive ? 'text-indigo-300' : 'text-slate-200'}>{st.label}</span>
                 <span className="px-1.5 py-0.2 text-[10px] bg-white/10 rounded text-slate-300 font-bold">{count}</span>
               </div>
@@ -120,13 +120,13 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
         {/* Left Column: Artifact List */}
         <div className="lg:col-span-4 bg-[#0d0d0d] border border-white/10 rounded-lg p-3 flex flex-col gap-2 overflow-hidden shadow-2xl">
           <div className="flex items-center justify-between border-b border-white/5 pb-2">
-            <h2 className="text-xs font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wide">
+            <h2 className="text-sm font-mono font-bold text-white flex items-center gap-2 uppercase tracking-wide">
               <FileCode2 className="w-3.5 h-3.5 text-purple-400" />
               <span>{activeStage} ARTIFACTS</span>
             </h2>
             <button
               onClick={onOpenNewArtifactModal}
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-mono flex items-center gap-1 font-bold"
+              className="text-sm text-indigo-400 hover:text-indigo-300 font-mono flex items-center gap-1 font-bold"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>New</span>
@@ -140,13 +140,13 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
               value={localSearch}
               onChange={(e) => setLocalSearch(e.target.value)}
               placeholder="Search stage artifacts..."
-              className="w-full bg-black/40 border border-white/5 rounded pl-8 pr-3 py-1.5 text-xs text-slate-200 font-mono focus:outline-none focus:border-indigo-500/50"
+              className="w-full bg-black/40 border border-white/5 rounded pl-8 pr-3 py-1.5 text-sm text-slate-200 font-mono focus:outline-none focus:border-indigo-500/50"
             />
           </div>
 
           <div className="flex-1 overflow-y-auto space-y-2 pr-1">
             {stageArtifacts.length === 0 ? (
-              <div className="text-center py-12 text-slate-500 font-mono text-xs italic">
+              <div className="text-center py-12 text-slate-500 font-mono text-sm italic">
                 No artifacts in stage {activeStage}
               </div>
             ) : (
@@ -157,7 +157,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
                   <div
                     key={art.artifact_id}
                     onClick={() => setSelectedArtifactId(art.artifact_id)}
-                    className={`p-3 rounded-lg border cursor-pointer transition-all space-y-1.5 font-mono text-xs ${
+                    className={`p-3 rounded-lg border cursor-pointer transition-all space-y-1.5 font-mono text-sm ${
                       isSelected
                         ? 'bg-white/10 border-indigo-500/60 shadow-[0_0_15px_rgba(79,70,229,0.2)]'
                         : 'bg-white/5 border-white/5 hover:border-white/15'
@@ -170,7 +170,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
                       </span>
                     </div>
 
-                    <div className="font-sans font-bold text-white text-xs line-clamp-2">
+                    <div className="font-sans font-bold text-white text-sm line-clamp-2">
                       {art.title || art.artifact_id}
                     </div>
 
@@ -196,7 +196,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
               {/* Header Details */}
               <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/5 pb-3 gap-2">
                 <div>
-                  <div className="flex items-center gap-2 font-mono text-xs">
+                  <div className="flex items-center gap-2 font-mono text-sm">
                     <span className="text-indigo-400 font-bold">{selectedArtifact.artifact_id}</span>
                     <span className="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] uppercase font-bold tracking-widest">
                       STAGE: {selectedArtifact.stage || activeStage}
@@ -208,7 +208,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
                   </h1>
                 </div>
 
-                <div className="flex items-center gap-2 font-mono text-xs">
+                <div className="flex items-center gap-2 font-mono text-sm">
                   <button
                     onClick={() => setShowRawJson(!showRawJson)}
                     className="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-slate-300 flex items-center gap-1.5 font-bold"
@@ -232,7 +232,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
               </div>
 
               {/* Provenance Metadata Box */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-black/40 p-3 rounded-lg border border-white/10 font-mono text-xs">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-black/40 p-3 rounded-lg border border-white/10 font-mono text-sm">
                 <div>
                   <span className="text-slate-500 text-[10px] uppercase font-bold">PROVENANCE MODEL</span>
                   <div className="text-indigo-300 font-semibold truncate mt-0.5">
@@ -257,15 +257,15 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
 
               {/* Content Render Surface */}
               {showRawJson ? (
-                <div className="bg-black/60 p-4 rounded-lg border border-white/10 font-mono text-xs text-emerald-400 overflow-x-auto shadow-inner">
+                <div className="bg-black/60 p-4 rounded-lg border border-white/10 font-mono text-sm text-emerald-400 overflow-x-auto shadow-inner">
                   <pre>{JSON.stringify(selectedArtifact, null, 2)}</pre>
                 </div>
               ) : (
-                <div className="space-y-4 font-sans text-xs">
+                <div className="space-y-4 font-sans text-sm">
                   {/* Summary Box */}
                   <div className="bg-white/5 p-4 rounded-lg border border-white/10 space-y-1">
                     <h3 className="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-wide">Artifact Overview</h3>
-                    <p className="text-slate-200 leading-relaxed font-sans text-xs">
+                    <p className="text-slate-200 leading-relaxed font-sans text-sm">
                       {selectedArtifact.summary || 'No summary overview defined for this artifact.'}
                     </p>
                   </div>
@@ -278,7 +278,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
                         <span>Captured HTML Session Transcript</span>
                       </h3>
                       <div
-                        className="bg-black/60 p-4 rounded-lg border border-white/10 font-mono text-xs"
+                        className="bg-black/60 p-4 rounded-lg border border-white/10 font-mono text-sm"
                         dangerouslySetInnerHTML={{ __html: selectedArtifact.html_transcript }}
                       />
                     </div>
@@ -304,7 +304,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
                           return (
                             <div key={p.id} className="bg-white/5 border border-white/10 p-3.5 rounded-lg space-y-2">
                               <div className="flex items-center justify-between">
-                                <span className="font-bold text-white font-sans text-xs">{p.name}</span>
+                                <span className="font-bold text-white font-sans text-sm">{p.name}</span>
                                 <span className={`px-2 py-0.5 text-[10px] font-mono font-bold border rounded ${voteBadge}`}>
                                   {p.vote}
                                 </span>
@@ -343,7 +343,7 @@ export const ArtifactsReviewSurface: React.FC<ArtifactsReviewSurfaceProps> = ({
               )}
             </>
           ) : (
-            <div className="py-24 text-center text-slate-500 font-mono text-xs">
+            <div className="py-24 text-center text-slate-500 font-mono text-sm">
               Select an artifact on the left to inspect deliberation surfaces
             </div>
           )}

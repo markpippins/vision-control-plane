@@ -53,12 +53,12 @@ export const HeaderAddressBar: React.FC<HeaderAddressBarProps> = ({
   return (
     <header className="bg-[#0a0a0a] border-b border-white/10 text-slate-200 select-none flex flex-col transition-colors duration-200">
       {/* Top Utility / Branding Bar */}
-      <div className="flex flex-wrap items-center justify-between px-4 py-2 bg-black/40 text-xs border-b border-white/5 gap-2">
+      <div className="flex flex-wrap items-center justify-between px-4 py-2 bg-black/40 text-sm border-b border-white/5 gap-2">
         <div className="flex items-center gap-2.5 flex-wrap">
           {/* Project Box */}
           <div className="flex items-center gap-2 bg-black/60 px-2.5 py-1 rounded border border-white/5 font-mono">
-            <span className="text-xs text-slate-500 uppercase tracking-tighter font-bold">PRJ:</span>
-            <span className="text-xs text-indigo-400 font-mono font-bold">vision-srv-core</span>
+            <span className="text-sm text-slate-500 uppercase tracking-tighter font-bold">PRJ:</span>
+            <span className="text-sm text-indigo-400 font-mono font-bold">vision-srv-core</span>
             <span className="text-[10px] px-1.5 py-0.2 bg-indigo-500/20 text-indigo-300 rounded border border-indigo-500/30">v1.1.0</span>
           </div>
 
@@ -138,7 +138,7 @@ export const HeaderAddressBar: React.FC<HeaderAddressBarProps> = ({
 
           <button
             onClick={() => onToggleMockMode(!isMockMode)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors text-xs ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors text-sm ${
               isMockMode
                 ? 'bg-amber-500/10 border-amber-500/30 text-amber-300 hover:bg-amber-500/20'
                 : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20'
@@ -170,7 +170,7 @@ export const HeaderAddressBar: React.FC<HeaderAddressBarProps> = ({
             value={addressInput}
             onChange={(e) => setAddressInput(e.target.value)}
             placeholder={`http://localhost:${uiPort}/api/work-requests`}
-            className="w-full bg-transparent text-xs text-white font-mono focus:outline-none placeholder-slate-600"
+            className="w-full bg-transparent text-sm text-white font-mono focus:outline-none placeholder-slate-600"
           />
           <button type="submit" className="text-slate-400 hover:text-indigo-400 text-[11px] font-mono px-1 font-bold">
             EXECUTE
@@ -185,7 +185,7 @@ export const HeaderAddressBar: React.FC<HeaderAddressBarProps> = ({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search WR ID, intent..."
-            className="w-full h-8 bg-black/40 border border-white/5 rounded pl-8 pr-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 font-mono"
+            className="w-full h-8 bg-black/40 border border-white/5 rounded pl-8 pr-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 font-mono"
           />
         </div>
 
@@ -193,7 +193,7 @@ export const HeaderAddressBar: React.FC<HeaderAddressBarProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={onOpenNewWRModal}
-            className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded text-xs font-bold shadow-[0_0_15px_rgba(79,70,229,0.4)] transition-all"
+            className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded text-sm font-bold shadow-[0_0_15px_rgba(79,70,229,0.4)] transition-all"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>New Request</span>
@@ -201,7 +201,7 @@ export const HeaderAddressBar: React.FC<HeaderAddressBarProps> = ({
 
           <button
             onClick={onOpenNewArtifactModal}
-            className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 px-3 py-1.5 rounded text-xs font-semibold transition-colors"
+            className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 px-3 py-1.5 rounded text-sm font-semibold transition-colors"
           >
             <Zap className="w-3.5 h-3.5 text-amber-400" />
             <span>Attach Artifact</span>

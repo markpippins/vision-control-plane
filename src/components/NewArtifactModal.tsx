@@ -66,7 +66,7 @@ export const NewArtifactModal: React.FC<NewArtifactModalProps> = ({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3 font-mono text-xs">
+        <form onSubmit={handleSubmit} className="space-y-3 font-mono text-sm">
           <div>
             <label className="text-[10px] text-slate-400 font-bold uppercase">ARTIFACT TITLE *</label>
             <input
@@ -75,7 +75,7 @@ export const NewArtifactModal: React.FC<NewArtifactModalProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. HTML Session Harvest #9912 or Specification Spec-01"
-              className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 font-sans mt-1"
+              className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 font-sans mt-1"
             />
           </div>
 
@@ -85,7 +85,7 @@ export const NewArtifactModal: React.FC<NewArtifactModalProps> = ({
               <select
                 value={stage}
                 onChange={(e) => setStage(e.target.value as PipelineStage)}
-                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
               >
                 <option value="HARVEST">1. Harvest (HTML Transcript)</option>
                 <option value="CANDIDATE">2. Candidate</option>
@@ -103,7 +103,7 @@ export const NewArtifactModal: React.FC<NewArtifactModalProps> = ({
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as ArtifactType)}
-                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
               >
                 <option value="SUMMARY">SUMMARY</option>
                 <option value="PLAN">PLAN</option>
@@ -120,7 +120,7 @@ export const NewArtifactModal: React.FC<NewArtifactModalProps> = ({
             <select
               value={wrId}
               onChange={(e) => setWrId(e.target.value)}
-              className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+              className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
             >
               <option value="">-- Unlinked --</option>
               {existingWrIds.map((id) => (
@@ -138,7 +138,7 @@ export const NewArtifactModal: React.FC<NewArtifactModalProps> = ({
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
               placeholder="Brief summary..."
-              className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 font-sans mt-1"
+              className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 font-sans mt-1"
             />
           </div>
 
@@ -150,7 +150,7 @@ export const NewArtifactModal: React.FC<NewArtifactModalProps> = ({
                 value={rawHtmlContent}
                 onChange={(e) => setRawHtmlContent(e.target.value)}
                 placeholder="<div className='font-mono'>[14:00] Agent log...</div>"
-                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-emerald-300 font-mono focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-emerald-300 font-mono focus:outline-none focus:border-indigo-500/50 mt-1"
               />
             </div>
           )}

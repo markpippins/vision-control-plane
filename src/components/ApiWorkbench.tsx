@@ -113,7 +113,7 @@ export const ApiWorkbench: React.FC = () => {
   return (
     <div className="p-4 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto bg-[#050505] text-slate-100 font-sans">
       {/* Header */}
-      <div className="flex items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 font-mono text-xs shadow-xl">
+      <div className="flex items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 font-mono text-sm shadow-xl">
         <div className="flex items-center gap-2">
           <Terminal className="w-4 h-4 text-indigo-400" />
           <span className="font-bold text-white text-sm tracking-wide">INTERACTIVE REST API EXPLORER & WORKBENCH</span>
@@ -124,7 +124,7 @@ export const ApiWorkbench: React.FC = () => {
       {/* Grid: Endpoint List (Left 4 cols) + Tester Workbench (Right 8 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Endpoint List */}
-        <div className="lg:col-span-4 bg-[#0d0d0d] border border-white/10 rounded-lg p-3.5 space-y-2 font-mono text-xs shadow-2xl">
+        <div className="lg:col-span-4 bg-[#0d0d0d] border border-white/10 rounded-lg p-3.5 space-y-2 font-mono text-sm shadow-2xl">
           <h2 className="font-bold text-white border-b border-white/5 pb-2 uppercase tracking-wide">
             REST API ENDPOINTS ({endpoints.length})
           </h2>
@@ -163,7 +163,7 @@ export const ApiWorkbench: React.FC = () => {
         </div>
 
         {/* Tester & Request/Response Inspector */}
-        <div className="lg:col-span-8 bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-4 font-mono text-xs shadow-2xl">
+        <div className="lg:col-span-8 bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-4 font-mono text-sm shadow-2xl">
           <div className="flex items-center justify-between border-b border-white/5 pb-2.5">
             <h2 className="font-bold text-indigo-300 flex items-center gap-2">
               <Globe className="w-4 h-4 text-indigo-400" />
@@ -187,7 +187,7 @@ export const ApiWorkbench: React.FC = () => {
                 type="text"
                 value={wrIdInput}
                 onChange={(e) => setWrIdInput(e.target.value)}
-                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
               />
             </div>
           )}
@@ -199,7 +199,7 @@ export const ApiWorkbench: React.FC = () => {
                 type="text"
                 value={targetWrIdInput}
                 onChange={(e) => setTargetWrIdInput(e.target.value)}
-                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
               />
             </div>
           )}
@@ -211,7 +211,7 @@ export const ApiWorkbench: React.FC = () => {
                 rows={5}
                 value={postPayload}
                 onChange={(e) => setPostPayload(e.target.value)}
-                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-emerald-300 font-mono focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-emerald-300 font-mono focus:outline-none focus:border-indigo-500/50 mt-1"
               />
             </div>
           )}
@@ -250,7 +250,7 @@ export const ApiWorkbench: React.FC = () => {
               )}
             </div>
 
-            <div className="bg-black/60 p-3 rounded-lg border border-white/10 font-mono text-xs text-slate-300 max-h-72 overflow-y-auto shadow-inner">
+            <div className="bg-black/60 p-3 rounded-lg border border-white/10 font-mono text-sm text-slate-300 max-h-72 overflow-y-auto shadow-inner">
               {responseData ? (
                 <pre>{JSON.stringify(responseData, null, 2)}</pre>
               ) : (

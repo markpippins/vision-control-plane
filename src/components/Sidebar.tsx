@@ -94,7 +94,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab, counts
             V
           </div>
           <div>
-            <div className="text-xs font-bold text-white tracking-widest uppercase">Vision-Srv</div>
+            <div className="text-sm font-bold text-white tracking-widest uppercase">Vision-Srv</div>
             <div className="text-[10px] text-slate-500 font-mono">LOSM v1.1.0-alpha</div>
           </div>
         </div>
@@ -112,7 +112,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab, counts
               <button
                 key={item.id}
                 onClick={() => onSelectTab(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded text-xs transition-colors font-medium ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded text-sm transition-colors font-medium ${
                   isActive
                     ? 'bg-indigo-500/10 text-indigo-400 border-l-2 border-indigo-500 font-semibold'
                     : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'

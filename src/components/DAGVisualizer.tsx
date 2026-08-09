@@ -83,7 +83,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
   return (
     <div className="p-4 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto bg-[#050505] text-slate-100 font-sans">
       {/* Top Controls Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 space-y-2 md:space-y-0 font-mono text-xs shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 space-y-2 md:space-y-0 font-mono text-sm shadow-xl">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <GitGraph className="w-4 h-4 text-sky-400" />
@@ -112,7 +112,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Left Column: Interactive Graph Topology */}
         <div className="lg:col-span-8 bg-[#0d0d0d] border border-white/10 rounded-lg p-4 flex flex-col space-y-4 shadow-2xl">
-          <div className="flex items-center justify-between border-b border-white/5 pb-2 font-mono text-xs">
+          <div className="flex items-center justify-between border-b border-white/5 pb-2 font-mono text-sm">
             <h2 className="font-bold text-white flex items-center gap-2 uppercase tracking-wide">
               <Layers className="w-3.5 h-3.5 text-indigo-400" />
               <span>HIERARCHICAL NODE TOPOLOGY (DEPTH LEVELS 0 - {dag.depth})</span>
@@ -129,7 +129,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
                 const nodesAtDepth = depthGroups[depth];
 
                 return (
-                  <div key={depth} className="space-y-1.5 font-mono text-xs">
+                  <div key={depth} className="space-y-1.5 font-mono text-sm">
                     <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
                       <span>DEPTH LEVEL {depth}</span>
@@ -159,7 +159,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
                               </span>
                             </div>
 
-                            <div className="text-xs font-sans text-slate-200 line-clamp-2 leading-snug font-medium">
+                            <div className="text-sm font-sans text-slate-200 line-clamp-2 leading-snug font-medium">
                               {node.intent}
                             </div>
 
@@ -177,7 +177,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
           </div>
 
           {/* Explicit DAG Edges Table */}
-          <div className="pt-2 border-t border-white/5 font-mono text-xs space-y-2">
+          <div className="pt-2 border-t border-white/5 font-mono text-sm space-y-2">
             <h3 className="font-bold text-slate-300 text-[11px] uppercase tracking-wide">EXPLICIT DIRECTED EDGES ({dag.edges.length})</h3>
             <div className="overflow-x-auto max-h-36">
               <table className="w-full text-left text-[11px] border-collapse">
@@ -211,7 +211,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
         {/* Right Column: Path Finder & Structural Validator Tooling */}
         <div className="lg:col-span-4 space-y-4">
           {/* Path Finder Widget */}
-          <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-xs shadow-2xl">
+          <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-sm shadow-2xl">
             <div className="flex items-center gap-2 text-amber-400 font-bold border-b border-white/5 pb-2 uppercase tracking-wide">
               <Zap className="w-4 h-4" />
               <span>SHORTEST PATH TRAVERSAL FINDER</span>
@@ -223,7 +223,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
                 <select
                   value={sourceNodeId}
                   onChange={(e) => setSourceNodeId(e.target.value)}
-                  className="w-full bg-black/40 border border-white/5 rounded p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                  className="w-full bg-black/40 border border-white/5 rounded p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
                 >
                   {nodeKeys.map((id) => (
                     <option key={id} value={id}>
@@ -238,7 +238,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
                 <select
                   value={targetNodeId}
                   onChange={(e) => setTargetNodeId(e.target.value)}
-                  className="w-full bg-black/40 border border-white/5 rounded p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                  className="w-full bg-black/40 border border-white/5 rounded p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
                 >
                   {nodeKeys.map((id) => (
                     <option key={id} value={id}>
@@ -291,7 +291,7 @@ export const DAGVisualizer: React.FC<DAGVisualizerProps> = ({
           </div>
 
           {/* Structural Validation Runner Widget */}
-          <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-xs shadow-2xl">
+          <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-sm shadow-2xl">
             <div className="flex items-center gap-2 text-emerald-400 font-bold border-b border-white/5 pb-2 uppercase tracking-wide">
               <CheckCircle2 className="w-4 h-4" />
               <span>6-PASS STRUCTURAL VALIDATOR</span>

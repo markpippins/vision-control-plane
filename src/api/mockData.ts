@@ -165,7 +165,7 @@ export const INITIAL_ARTIFACTS: Artifact[] = [
       extracted_keywords: ['memory-sync', 'losm-ir', 'bitemporal', 'dag-compilation']
     },
     html_transcript: `
-<div class="font-mono text-xs text-slate-300 bg-slate-950 p-4 rounded border border-slate-800 space-y-2">
+<div class="font-mono text-sm text-slate-300 bg-slate-950 p-4 rounded border border-slate-800 space-y-2">
   <div class="text-emerald-400 font-bold">[14:02:11] ARCHITECT_AGENT &gt; Initiating session harvest for LOSM Work Request #a1b2c3d4.</div>
   <div class="text-sky-300">[14:02:15] EXECUTION_AGENT_01 &gt; Analyzing target repository structure... Found PostgreSQL schema "vision".</div>
   <div class="text-amber-300">[14:02:22] SAFETY_CRITIC &gt; WARNING: Ensure all mutations produce bitemporal recorded_on_dt entries.</div>

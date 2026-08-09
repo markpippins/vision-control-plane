@@ -94,7 +94,7 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
   return (
     <div className="p-4 space-y-3 h-[calc(100vh-80px)] flex flex-col bg-[#050505] text-slate-100 font-sans">
       {/* Top Filter Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 bg-[#0a0a0a] p-3 rounded-lg border border-white/10 text-xs font-mono shadow-xl">
+      <div className="flex flex-wrap items-center justify-between gap-2 bg-[#0a0a0a] p-3 rounded-lg border border-white/10 text-sm font-mono shadow-xl">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-slate-400">
             <Sliders className="w-3.5 h-3.5 text-indigo-400" />
@@ -123,7 +123,7 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
               value={localSearch}
               onChange={(e) => setLocalSearch(e.target.value)}
               placeholder="Filter tasks..."
-              className="bg-black/40 border border-white/5 rounded pl-8 pr-2 py-1 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 w-48"
+              className="bg-black/40 border border-white/5 rounded pl-8 pr-2 py-1 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 w-48"
             />
           </div>
         </div>
@@ -153,7 +153,7 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
               className="w-72 shrink-0 bg-[#0d0d0d] border border-white/10 rounded-lg flex flex-col max-h-full overflow-hidden shadow-2xl"
             >
               {/* Column Header */}
-              <div className={`p-3 border-b border-white/5 flex items-center justify-between text-xs font-mono font-bold ${column.color}`}>
+              <div className={`p-3 border-b border-white/5 flex items-center justify-between text-sm font-mono font-bold ${column.color}`}>
                 <span className="uppercase tracking-wider">{column.label}</span>
                 <span className="px-2 py-0.5 bg-black/60 rounded border border-white/10 text-[11px] text-white">
                   {colTasks.length}
@@ -161,7 +161,7 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
               </div>
 
               {/* Cards Container */}
-              <div className="p-2.5 space-y-2.5 overflow-y-auto flex-1 text-xs">
+              <div className="p-2.5 space-y-2.5 overflow-y-auto flex-1 text-sm">
                 {colTasks.length === 0 ? (
                   <div className="py-12 text-center text-slate-600 font-mono text-[11px] italic">
                     No items in {column.id}
@@ -192,7 +192,7 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
                         </div>
 
                         {/* Intent Statement */}
-                        <p className="text-slate-200 text-xs font-sans leading-snug line-clamp-3">
+                        <p className="text-slate-200 text-sm font-sans leading-snug line-clamp-3">
                           {task.intent}
                         </p>
 

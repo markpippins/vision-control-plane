@@ -21,7 +21,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
   return (
     <div className="p-4 space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto bg-[#050505] text-slate-100 font-sans">
       {/* Header */}
-      <div className="flex items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 font-mono text-xs shadow-xl">
+      <div className="flex items-center justify-between bg-[#0a0a0a] p-3.5 rounded-lg border border-white/10 font-mono text-sm shadow-xl">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-emerald-400" />
           <span className="font-bold text-white text-sm tracking-wide">BITEMPORAL AUDIT & GOVERNANCE LEDGER</span>
@@ -30,7 +30,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
       </div>
 
       {/* Selector Tabs */}
-      <div className="flex items-center gap-2 border-b border-white/5 pb-2 font-mono text-xs">
+      <div className="flex items-center gap-2 border-b border-white/5 pb-2 font-mono text-sm">
         <button
           onClick={() => setActiveTab('lifecycle')}
           className={`px-3 py-1.5 rounded-lg transition-all font-bold ${
@@ -65,7 +65,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
 
       {/* Tab Contents */}
       {activeTab === 'lifecycle' && (
-        <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-xs shadow-2xl">
+        <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-sm shadow-2xl">
           <h2 className="font-bold text-white border-b border-white/5 pb-2 uppercase tracking-wide flex items-center gap-2">
             <Activity className="w-3.5 h-3.5 text-indigo-400" />
             <span>WORK REQUEST LIFECYCLE TRANSITION LOGS</span>
@@ -103,7 +103,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
       )}
 
       {activeTab === 'governance' && (
-        <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-xs shadow-2xl">
+        <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-sm shadow-2xl">
           <h2 className="font-bold text-white border-b border-white/5 pb-2 uppercase tracking-wide flex items-center gap-2">
             <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
             <span>GOVERNANCE & POLICY CHECK AUDIT RECORDS</span>
@@ -136,7 +136,7 @@ export const AuditEventsView: React.FC<AuditEventsViewProps> = ({
       )}
 
       {activeTab === 'receipts' && (
-        <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-xs shadow-2xl">
+        <div className="bg-[#0d0d0d] border border-white/10 rounded-lg p-4 space-y-3 font-mono text-sm shadow-2xl">
           <h2 className="font-bold text-white border-b border-white/5 pb-2 uppercase tracking-wide flex items-center gap-2">
             <FileText className="w-3.5 h-3.5 text-amber-400" />
             <span>RECEIPT INGESTION SHA-256 HASH VERIFICATION</span>

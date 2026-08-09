@@ -56,7 +56,7 @@ export const NewWorkRequestModal: React.FC<NewWorkRequestModalProps> = ({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3 font-mono text-xs">
+        <form onSubmit={handleSubmit} className="space-y-3 font-mono text-sm">
           <div>
             <label className="text-[10px] text-slate-400 font-bold uppercase">INTENT STATEMENT / GOAL *</label>
             <textarea
@@ -65,7 +65,7 @@ export const NewWorkRequestModal: React.FC<NewWorkRequestModalProps> = ({
               value={intent}
               onChange={(e) => setIntent(e.target.value)}
               placeholder="e.g. Synthesize Cross-Subsystem Autonomous Memory Synchronization Protocol"
-              className="w-full bg-black/40 border border-white/5 rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 font-sans mt-1"
+              className="w-full bg-black/40 border border-white/5 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 font-sans mt-1"
             />
           </div>
 
@@ -78,7 +78,7 @@ export const NewWorkRequestModal: React.FC<NewWorkRequestModalProps> = ({
                 max={10}
                 value={priority}
                 onChange={(e) => setPriority(Number(e.target.value))}
-                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
               />
             </div>
 
@@ -87,7 +87,7 @@ export const NewWorkRequestModal: React.FC<NewWorkRequestModalProps> = ({
               <select
                 value={parentId}
                 onChange={(e) => setParentId(e.target.value)}
-                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+                className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
               >
                 <option value="">-- Root Level Task --</option>
                 {existingWrIds.map((id) => (
@@ -106,7 +106,7 @@ export const NewWorkRequestModal: React.FC<NewWorkRequestModalProps> = ({
               value={mustSupport}
               onChange={(e) => setMustSupport(e.target.value)}
               placeholder="nexus-console, nebula-ui"
-              className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
+              className="w-full bg-black/40 border border-white/5 rounded-lg p-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500/50 mt-1"
             />
           </div>
 
