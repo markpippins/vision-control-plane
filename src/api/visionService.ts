@@ -31,9 +31,16 @@ export class VisionService {
   private apiBaseUrl: string;
 
   constructor() {
-    const savedMode = localStorage.getItem(MOCK_STORAGE_KEY_MODE);
-    this.mockMode = savedMode !== null ? savedMode === 'true' : true;
-    this.apiBaseUrl = (import.meta as any).env?.VITE_VISION_SRV_URL || '/api';
+    // Environment-selected mode is authoritative at startup: the live unit
+    // runs VITE_MOCK_MODE=false, so the client boots LIVE instead of
+    // defaulting to mock or honoring a stale localStorage override. Mock is
+    // an explicit .env-selected option only.
+    this.mockMode = (import.meta as any).env?.VITE_MOCK_MODE === 'true';
+    // Live base: honor VITE_VISION_SRV_URL when provided (appending the /api
+    // prefix vision-srv expects), otherwise route through the same-origin
+    // server.ts proxy (/api -> VISION_SRV_URL).
+    const srvUrl = (import.meta as any).env?.VITE_VISION_SRV_URL;
+    this.apiBaseUrl = srvUrl ? `${srvUrl}/api` : '/api';
     this.initMockStorage();
   }
 
@@ -43,7 +50,8 @@ export class VisionService {
 
   public setMockMode(active: boolean): void {
     this.mockMode = active;
-    localStorage.setItem(MOCK_STORAGE_KEY_MODE, String(active));
+    // Session toggle only — a reload returns to the environment-selected
+    // mode, so mock cannot silently override VITE_MOCK_MODE.
   }
 
   public resetMockData(): void {
@@ -132,13 +140,25 @@ export class VisionService {
     if (this.mockMode) {
       return { status: 'ok', mode: 'MOCK_ENGINE', time: new Date().toISOString() };
     }
+    // vision-srv exposes health at /health (not /api/health). In relative
+    // mode the UI server proxies /health to the upstream; in direct mode use
+    // the configured srv origin.
+    const healthUrl = this.apiBaseUrl.startsWith('http')
+      ? `${(import.meta as any).env?.VITE_VISION_SRV_URL}/health`
+      : '/health';
     try {
-      const res = await fetch(`${this.apiBaseUrl}/health`);
+      const res = await fetch(healthUrl);
       if (!res.ok) throw new Error('Health check failed');
       const data = await res.json();
       return { ...data, mode: 'LIVE_FASTAPI_8003', time: new Date().toISOString() };
-    } catch (err) {
-      return { status: 'degraded_fallback_mock', mode: 'MOCK_FALLBACK', time: new Date().toISOString() };
+    } catch (err: any) {
+      // Reflect the upstream failure — never report mock as healthy.
+      return {
+        status: 'unhealthy',
+        mode: 'LIVE_UPSTREAM_DOWN',
+        time: new Date().toISOString(),
+        error: err?.message || 'vision-srv unreachable'
+      };
     }
   }
 
@@ -152,8 +172,8 @@ export class VisionService {
       if (!res.ok) throw new Error('Failed to fetch work requests');
       return await res.json();
     } catch (err) {
-      console.warn('Live API error, falling back to mock:', err);
-      return this.getStoredWorkRequests().slice(skip, skip + limit);
+      // Live failures stay errors — no localStorage seed shown on failure.
+      throw err;
     }
   }
 
@@ -167,9 +187,8 @@ export class VisionService {
       if (res.status === 404) return null;
       if (!res.ok) throw new Error('Failed to fetch work request');
       return await res.json();
-    } catch {
-      const all = this.getStoredWorkRequests();
-      return all.find((w) => w.wr_id === wr_id) || null;
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -206,8 +225,8 @@ export class VisionService {
       });
       if (!res.ok) throw new Error('Failed to create work request');
       return await res.json();
-    } catch {
-      return this.createWorkRequest(payload); // fallback mock creation
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -243,8 +262,8 @@ export class VisionService {
       });
       if (!res.ok) throw new Error('Failed to update work request');
       return await res.json();
-    } catch {
-      return this.updateWorkRequest(wr_id, updates);
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -259,9 +278,10 @@ export class VisionService {
       const res = await fetch(`${this.apiBaseUrl}/work-requests/${wr_id}`, {
         method: 'DELETE'
       });
-      return res.ok;
-    } catch {
-      return this.deleteWorkRequest(wr_id);
+      if (!res.ok) throw new Error(`Failed to delete work request: HTTP ${res.status}`);
+      return true;
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -280,10 +300,8 @@ export class VisionService {
       const res = await fetch(url);
       if (!res.ok) throw new Error('Failed to fetch branches');
       return await res.json();
-    } catch {
-      let all = this.getStoredBranches();
-      if (wr_id) all = all.filter((b) => b.wr_id === wr_id);
-      return all.slice(skip, skip + limit);
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -317,8 +335,8 @@ export class VisionService {
       });
       if (!res.ok) throw new Error('Failed to create branch');
       return await res.json();
-    } catch {
-      return this.createBranch(payload);
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -337,10 +355,8 @@ export class VisionService {
       const res = await fetch(url);
       if (!res.ok) throw new Error('Failed to fetch artifacts');
       return await res.json();
-    } catch {
-      let all = this.getStoredArtifacts();
-      if (wr_id) all = all.filter((a) => a.wr_id === wr_id);
-      return all.slice(skip, skip + limit);
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -384,8 +400,8 @@ export class VisionService {
       });
       if (!res.ok) throw new Error('Failed to create artifact');
       return await res.json();
-    } catch {
-      return this.createArtifact(payload);
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -436,8 +452,8 @@ export class VisionService {
       const res = await fetch(`${this.apiBaseUrl}/work-requests/${wr_id}/dag`);
       if (!res.ok) throw new Error('Failed to fetch DAG');
       return await res.json();
-    } catch {
-      return this.getDAG(wr_id);
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -461,8 +477,8 @@ export class VisionService {
       const res = await fetch(`${this.apiBaseUrl}/work-requests/${source_wr_id}/dag/path/${target_wr_id}`);
       if (!res.ok) throw new Error('Failed to calculate path');
       return await res.json();
-    } catch {
-      return this.findPath(source_wr_id, target_wr_id);
+    } catch (err) {
+      throw err;
     }
   }
 
@@ -492,8 +508,8 @@ export class VisionService {
       const res = await fetch(`${this.apiBaseUrl}/work-requests/${wr_id}/dag/validate`);
       if (!res.ok) throw new Error('Validation request failed');
       return await res.json();
-    } catch {
-      return this.validateDAG(wr_id);
+    } catch (err) {
+      throw err;
     }
   }
 
