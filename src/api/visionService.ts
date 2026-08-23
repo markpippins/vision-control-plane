@@ -20,28 +20,33 @@ import {
   INITIAL_GOVERNANCE_EVENTS,
   INITIAL_RECEIPTS
 } from './mockData';
+import { resolveLacMode } from './lac';
 
 const MOCK_STORAGE_KEY_WR = 'losm_mock_work_requests_v1';
 const MOCK_STORAGE_KEY_ART = 'losm_mock_artifacts_v1';
 const MOCK_STORAGE_KEY_BR = 'losm_mock_branches_v1';
-const MOCK_STORAGE_KEY_MODE = 'losm_mock_mode_active';
+
+const LAC_ENV = (import.meta as any).env as Record<string, unknown> | undefined;
 
 export class VisionService {
   private mockMode: boolean;
   private apiBaseUrl: string;
 
   constructor() {
-    // Environment-selected mode is authoritative at startup: the live unit
-    // runs VITE_MOCK_MODE=false, so the client boots LIVE instead of
-    // defaulting to mock or honoring a stale localStorage override. Mock is
-    // an explicit .env-selected option only.
-    this.mockMode = (import.meta as any).env?.VITE_MOCK_MODE === 'true';
+    // LAC (thread 83d2fd5c): env is the sole mode authority; mock is an
+    // explicit opt-in (VITE_VISION_MODE=mock, legacy VITE_MOCK_MODE=true).
+    // Default is live. Mode is never persisted or read from storage.
+    this.mockMode =
+      resolveLacMode(LAC_ENV, 'VITE_VISION_MODE') === 'mock' ||
+      LAC_ENV?.['VITE_MOCK_MODE'] === 'true';
     // Live base: honor VITE_VISION_SRV_URL when provided (appending the /api
     // prefix vision-srv expects), otherwise route through the same-origin
     // server.ts proxy (/api -> VISION_SRV_URL).
     const srvUrl = (import.meta as any).env?.VITE_VISION_SRV_URL;
     this.apiBaseUrl = srvUrl ? `${srvUrl}/api` : '/api';
-    this.initMockStorage();
+    // Mock storage is seeded lazily ONLY in mock mode — a live-mode boot must
+    // never write fixture data anywhere (LAC rule 1 + audit-only hygiene).
+    if (this.mockMode) this.initMockStorage();
   }
 
   public isMockMode(): boolean {
