@@ -152,7 +152,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onSelectTab, counts
 
         <div className="pt-1 text-[9px] text-slate-600 flex justify-between uppercase">
           <span>6-Pass Compiler</span>
-          <span>FastAPI :8003</span>
+          <span>FastAPI :8006</span>
         </div>
       </div>
     </aside>

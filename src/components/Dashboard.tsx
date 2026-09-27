@@ -223,7 +223,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <Activity className="w-3.5 h-3.5 text-indigo-400" />
               <span>WORK REQUEST LIFECYCLE DISTRIBUTION</span>
             </h2>
-            <span className="text-[10px] font-mono text-slate-500">FastAPI REST :8003</span>
+            <span className="text-[10px] font-mono text-slate-500">FastAPI REST :8006</span>
           </div>
           <div className="h-48 w-full pt-2">
             <ResponsiveContainer width="100%" height="100%">

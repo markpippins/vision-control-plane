@@ -37,7 +37,7 @@ export const ApiWorkbench: React.FC = () => {
 
   const getCurlCommand = () => {
     const isMock = visionService.isMockMode();
-    const host = isMock ? 'http://localhost:3000' : 'http://localhost:8003';
+    const host = isMock ? 'http://localhost:3000' : 'http://localhost:8006';
 
     if (selectedEndpoint === 'GET /health') return `curl -X GET ${host}/health`;
     if (selectedEndpoint === 'GET /api/work-requests') return `curl -X GET ${host}/api/work-requests?limit=10`;
@@ -118,7 +118,7 @@ export const ApiWorkbench: React.FC = () => {
           <Terminal className="w-4 h-4 text-indigo-400" />
           <span className="font-bold text-white text-sm tracking-wide">INTERACTIVE REST API EXPLORER & WORKBENCH</span>
         </div>
-        <span className="text-slate-400">Target Server: <strong className="text-emerald-400">:8003 (FastAPI)</strong></span>
+        <span className="text-slate-400">Target Server: <strong className="text-emerald-400">:8006 (FastAPI)</strong></span>
       </div>
 
       {/* Grid: Endpoint List (Left 4 cols) + Tester Workbench (Right 8 cols) */}

@@ -155,7 +155,7 @@ export class VisionService {
       const res = await fetch(healthUrl);
       if (!res.ok) throw new Error('Health check failed');
       const data = await res.json();
-      return { ...data, mode: 'LIVE_FASTAPI_8003', time: new Date().toISOString() };
+      return { ...data, mode: 'LIVE_FASTAPI_8006', time: new Date().toISOString() };
     } catch (err: any) {
       // Reflect the upstream failure — never report mock as healthy.
       return {

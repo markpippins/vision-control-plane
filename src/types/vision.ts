@@ -1,6 +1,6 @@
 /**
  * LOSM Vision Service Domain Models & API Types
- * Port 8003 · FastAPI + PostgreSQL schema: vision
+ * Port 8006 · FastAPI + PostgreSQL schema: vision (losm-host)
  */
 
 export type WorkStatus =

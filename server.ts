@@ -6,11 +6,11 @@ import { createServer as createViteServer } from 'vite';
 async function startServer() {
   const app = express();
   const PORT = parseInt(process.env.PORT || '4208', 10);
-  const VISION_SRV_URL = process.env.VISION_SRV_URL || 'http://localhost:8003';
+  const VISION_SRV_URL = process.env.VISION_SRV_URL || 'http://localhost:8006';
 
   app.use(express.json());
 
-  // Proxy API endpoints to vision-srv (FastAPI on port 8003)
+  // Proxy API endpoints to the LOSM host (FastAPI on port 8006)
   app.use('/api', async (req, res, next) => {
     try {
       const targetUrl = `${VISION_SRV_URL}/api${req.url}`;

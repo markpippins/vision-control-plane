@@ -73,8 +73,8 @@ export const INITIAL_WORK_REQUESTS: PlanningTask[] = [
   {
     wr_id: 'wr-f6a7b8c9-4066',
     parent_request_id: null,
-    intent: 'Deploy Vision Service REST API Server to Port 8003 with FastAPI and AsyncPG',
-    constraints: { port: 8003, runner: 'systemd' },
+    intent: 'Deploy LOSM Host REST API Server to Port 8006 with FastAPI and AsyncPG',
+    constraints: { port: 8006, runner: 'systemd' },
     priority: 6,
     context_data: { source: 'infra-spec' },
     status: 'COMPLETION',
@@ -251,8 +251,8 @@ export const INITIAL_ARTIFACTS: Artifact[] = [
     artifact_id: 'art-spec-005',
     type: 'SPEC',
     stage: 'SPECIFICATION',
-    title: 'Specification SPEC-LOSM-REST-8003: FastAPI Open API Protocol Interface',
-    summary: 'Canonical specification for FastAPI vision-srv endpoints on port 8003, detailing Pydantic models and PostgreSQL schemas.',
+    title: 'Specification SPEC-LOSM-REST-8006: FastAPI Open API Protocol Interface',
+    summary: 'Canonical specification for FastAPI vision-srv endpoints on port 8006, detailing Pydantic models and PostgreSQL schemas.',
     confidence: 0.99,
     provenance: { model: 'nvidia/nemotron-3-ultra-550b-a55b', role: 'systems-architect' },
     wr_id: 'wr-b2c3d4e5-9922',
@@ -260,7 +260,7 @@ export const INITIAL_ARTIFACTS: Artifact[] = [
     template_metadata: { template: 'canonical-spec-v3' },
     created_at: '2026-07-24T01:35:00Z',
     content: {
-      spec_id: 'SPEC-LOSM-REST-8003',
+      spec_id: 'SPEC-LOSM-REST-8006',
       schema: 'vision',
       tables: ['work_requests_losm', 'artifacts', 'work_request_edges', 'branches', 'lifecycle_events', 'governance_events', 'receipt_ingest_records'],
       rest_endpoints: [
@@ -662,7 +662,7 @@ export const INITIAL_RECEIPTS: ReceiptIngestRecord[] = [
     receipt_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
     result: 'SUCCESS',
     lineage_parent: null,
-    payload: { port: 8003, pid: 14201, uptime_s: 36000 },
+    payload: { port: 8006, pid: 14201, uptime_s: 36000 },
     recorded_on_dt: '2026-07-23T18:05:00Z'
   },
   {
