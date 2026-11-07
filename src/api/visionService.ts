@@ -40,7 +40,7 @@ export class VisionService {
       resolveLacMode(LAC_ENV, 'VITE_VISION_MODE') === 'mock' ||
       LAC_ENV?.['VITE_MOCK_MODE'] === 'true';
     // Live base: honor VITE_VISION_SRV_URL when provided (appending the /api
-    // prefix vision-srv expects), otherwise route through the same-origin
+    // prefix losm-host expects), otherwise route through the same-origin
     // server.ts proxy (/api -> VISION_SRV_URL).
     const srvUrl = (import.meta as any).env?.VITE_VISION_SRV_URL;
     this.apiBaseUrl = srvUrl ? `${srvUrl}/api` : '/api';
@@ -145,7 +145,7 @@ export class VisionService {
     if (this.mockMode) {
       return { status: 'ok', mode: 'MOCK_ENGINE', time: new Date().toISOString() };
     }
-    // vision-srv exposes health at /health (not /api/health). In relative
+    // losm-host exposes health at /health (not /api/health). In relative
     // mode the UI server proxies /health to the upstream; in direct mode use
     // the configured srv origin.
     const healthUrl = this.apiBaseUrl.startsWith('http')
@@ -155,14 +155,14 @@ export class VisionService {
       const res = await fetch(healthUrl);
       if (!res.ok) throw new Error('Health check failed');
       const data = await res.json();
-      return { ...data, mode: 'LIVE_FASTAPI_8003', time: new Date().toISOString() };
+      return { ...data, mode: 'LIVE_LOSM_HOST_8006', time: new Date().toISOString() };
     } catch (err: any) {
       // Reflect the upstream failure — never report mock as healthy.
       return {
         status: 'unhealthy',
         mode: 'LIVE_UPSTREAM_DOWN',
         time: new Date().toISOString(),
-        error: err?.message || 'vision-srv unreachable'
+        error: err?.message || 'losm-host unreachable'
       };
     }
   }

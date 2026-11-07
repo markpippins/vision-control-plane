@@ -20,11 +20,11 @@ The UI operates on a clean, dual-mode architecture:
      ▼                           ▼
 [ Mock Mode ]             [ Live Mode ]
 (In-memory DB /           Proxy via Express ->
- localStorage)            http://localhost:8003
+ localStorage)            http://localhost:8006
 ```
 
 - **Mock Mode (Default)**: Uses realistic in-memory state initialized with rich dummy data (Harvests, Candidates, Intent Records, Requirements, Specs, Deliberation Agendas, Plans, Work Requests, Branches, DAGs, and Audit Logs). All mutations update client state immediately.
-- **Live Mode**: Calls the Node Express server proxy (`/api/*`), which forwards requests directly to `http://localhost:8003` where `vision-srv` FastAPI runs.
+- **Live Mode**: Calls the Node Express server proxy (`/api/*`), which forwards requests directly to `http://localhost:8006` where `losm-host` (which absorbed the vision-srv `/api` surface) runs.
 
 ---
 
@@ -36,8 +36,8 @@ To configure the live backend connection, copy `.env.example` to `.env`:
 # Set to false to connect to live FastAPI backend
 VITE_MOCK_MODE=false
 
-# Target URL for the vision-srv REST API
-VISION_SRV_URL=http://localhost:8003
+# Target URL for the LOSM backend (losm-host; absorbed vision-srv /api
+VISION_SRV_URL=http://localhost:8006
 ```
 
 ---
@@ -69,7 +69,7 @@ The `visionService` maps directly to all `vision-srv` FastAPI routes:
 
 2. **Start the Production Proxy Server**:
    ```bash
-   VISION_SRV_URL=http://your-vision-srv-host:8003 npm start
+   VISION_SRV_URL=http://your-losm-host:8006 npm start
    ```
 
 3. **Connecting directly from UI**:

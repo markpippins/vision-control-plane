@@ -6,11 +6,12 @@ import { createServer as createViteServer } from 'vite';
 async function startServer() {
   const app = express();
   const PORT = parseInt(process.env.PORT || '4208', 10);
-  const VISION_SRV_URL = process.env.VISION_SRV_URL || 'http://localhost:8003';
+  const VISION_SRV_URL = process.env.VISION_SRV_URL || 'http://localhost:8006';
 
   app.use(express.json());
 
-  // Proxy API endpoints to vision-srv (FastAPI on port 8003)
+  // Proxy API endpoints to losm-host (:8006), which absorbed the vision-srv
+  // /api surface per decision 5d8e10fd — the wire contract is unchanged.
   app.use('/api', async (req, res, next) => {
     try {
       const targetUrl = `${VISION_SRV_URL}/api${req.url}`;
@@ -37,7 +38,7 @@ async function startServer() {
       // In dev or mock fallback, pass to next so front end mock engine can handle smoothly
       return res.status(503).json({
         error: true,
-        message: `Could not connect to vision-srv at ${VISION_SRV_URL}. Enable Mock Mode in UI.`,
+        message: `Could not connect to losm-host at ${VISION_SRV_URL}. Enable Mock Mode in UI.`,
         details: err.message
       });
     }
